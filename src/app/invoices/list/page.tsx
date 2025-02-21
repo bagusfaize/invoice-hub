@@ -7,11 +7,11 @@ import { Box, Typography } from "@mui/material";
 export default function MyInvoices() {
   return (
     <Box>
-      <Box sx={{display: 'flex', justifyContent:'space-between'}}>
-        <Typography variant="h2" sx={{marginBottom: 3, fontSize: 22, fontWeight: 700}}>My Invoices</Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <Typography variant="h2" sx={{ marginBottom: 3, fontSize: 22, fontWeight: 700 }}>My Invoices</Typography>
         <InvoiceToolbar />
       </Box>
-        <InvoiceTable />
+      <InvoiceTable />
     </Box>
   )
 }

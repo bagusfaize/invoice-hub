@@ -3,13 +3,28 @@ import { useInvoiceStore } from "@/store/invoiceStore";
 import { Box, Card, CardContent, CardHeader, Chip, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import dayjs from "dayjs";
 import MenuIcon from '@mui/icons-material/Menu';
+import { formatCurrency } from "@/utils/currencyFormatter";
+import { useSearchParams } from "next/navigation";
 
 export default function InvoiceTable() {
     const { invoices } = useInvoiceStore();
+    const searchParams = useSearchParams();
 
-    const filteredInvoices = invoices;
+    const search = searchParams.get("search")?.toLowerCase() ?? "";
+    const status = searchParams.get("status") ?? "";
 
-    console.log('clg list', invoices);
+    const filteredInvoices = invoices.filter((invoice) => {
+        const matchesSearch = invoice.name.toLowerCase().includes(search) || invoice.number.toString().includes(search);
+        const matchesStatus = status ? invoice.status === status : true;
+        return matchesSearch && matchesStatus;
+    });
+
+    const statusStyles = {
+        Paid: { bg: "#EDF7F1", text: "#219653" },
+        Unpaid: { bg: "#FBF0F1", text: "#D34053" },
+        Pending: { bg: "#FFF8EB", text: "#FFA70B" },
+    }
+
     return (
         <Card>
             <CardContent sx={{ padding: 4 }}>
@@ -23,10 +38,7 @@ export default function InvoiceTable() {
                                             background: '#F7F9FC',
                                             border: 'none',
                                         }}
-                                        // className='!bg-[#f7f9fc] border-none'
                                         key={column.id}
-                                    // align={"center"}
-                                    // style={{ minWidth: column.minWidth }}
                                     >
                                         <Typography fontWeight="600">{column.label}</Typography>
                                     </TableCell>
@@ -52,14 +64,16 @@ export default function InvoiceTable() {
                                     <TableCell>
                                         <Chip
                                             sx={{
-                                                // background
+                                                backgroundColor: statusStyles[invoice.status].bg,
+                                                color: statusStyles[invoice.status].text,
+                                                fontWeight: 600
                                             }}
-                                            label={ invoice.status }
+                                            label={invoice.status}
                                         />
 
                                     </TableCell>
                                     <TableCell>
-                                        {invoice.amount}
+                                        {formatCurrency(invoice.amount)}
                                     </TableCell>
                                     <TableCell>
                                         <IconButton>
