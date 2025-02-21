@@ -1,6 +1,7 @@
 import { Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 type Menu = {
     name: string,
@@ -22,24 +23,29 @@ const menus: Menu[] = [
 ]
 
 export default function Sidebar() {
+    const pathname = usePathname();
 
     const renderMenus = (menus: Menu[]) => (
         <ul>
-            {menus.map((menu) => (
-                <li key={menu.name}>
-                    <Link
-                        href={menu.link}
-                        className="flex gap-3 py-4 text-sm"
-                    >
-                        <span>
-                            <Image src={menu.icon} alt={menu.name} width={17} height={17} />
-                        </span>
-                        <span>
-                            {menu.name}
-                        </span>
-                    </Link>
-                </li>
-            ))}
+            {menus.map((menu) => {
+                console.log('clg pathname', pathname, menu.link);
+                const isActive = pathname === menu.link;
+                return (
+                    <li key={menu.name}>
+                        <Link
+                            href={menu.link}
+                            className={`flex gap-3 py-4 text-sm transition-colors ${isActive ? "text-white" : "text-gray-400"}`}
+                        >
+                            <span className={`transition-opacity ${isActive ? "opacity-100" : "opacity-50"}`}>
+                                <Image src={menu.icon} alt={menu.name} width={17} height={17} />
+                            </span>
+                            <span>
+                                {menu.name}
+                            </span>
+                        </Link>
+                    </li>
+                )
+            })}
         </ul>
     )
 
