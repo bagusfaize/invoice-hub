@@ -7,10 +7,7 @@ interface NumericInputProps {
     control: Control<any>,
     label: string,
     required?: boolean,
-    errorMessage?: string;
-    fullWidth?: boolean,
     placeholder?: string;
-    readOnly?: boolean;
 }
 
 export default function CustomNumericInput({
@@ -18,11 +15,7 @@ export default function CustomNumericInput({
     control,
     label,
     required = false,
-    errorMessage,
-    fullWidth = true,
     placeholder,
-    readOnly,
-    ...props
 }: NumericInputProps) {
     return (
         <Controller

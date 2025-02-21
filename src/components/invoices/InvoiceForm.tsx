@@ -19,7 +19,6 @@ export default function InvoiceForm() {
     const {
         control,
         handleSubmit,
-        watch,
         reset,
     } = useForm({
         resolver: zodResolver(InvoiceSchema),

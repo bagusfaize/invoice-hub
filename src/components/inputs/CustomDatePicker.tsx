@@ -8,8 +8,6 @@ interface DatePickerProps {
   control: Control<any>,
   label: string,
   required?: boolean,
-  errorMessage?: string;
-  fullWidth?: boolean,
 }
 
 export default function CustomDatePicker({
@@ -17,8 +15,6 @@ export default function CustomDatePicker({
   control,
   label,
   required = false,
-  errorMessage,
-  fullWidth = true,
 }: DatePickerProps) {
   return (
     <Controller

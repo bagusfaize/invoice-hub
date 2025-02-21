@@ -6,7 +6,6 @@ interface TextFieldProps {
     control: Control<any>,
     label: string,
     required?: boolean,
-    errorMessage?: string;
     fullWidth?: boolean,
     placeholder?: string;
     readOnly?: boolean;
@@ -17,11 +16,9 @@ export default function CustomTextField({
     control,
     label,
     required = false,
-    errorMessage,
     fullWidth = true,
     placeholder,
     readOnly,
-    ...props
 }: TextFieldProps) {
     return (
         <Controller

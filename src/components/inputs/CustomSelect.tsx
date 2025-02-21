@@ -1,6 +1,6 @@
 'use client'
 
-import { FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material";
 import { Control, Controller } from "react-hook-form";
 import { OptionType } from "@/lib/types/common.type";
 
@@ -9,10 +9,7 @@ interface CustomSelectProps {
     control: Control<any>,
     label: string,
     required?: boolean,
-    errorMessage?: string;
-    fullWidth?: boolean,
     placeholder?: string;
-    type?: string;
     options: OptionType[];
 }
 
@@ -21,10 +18,7 @@ export default function CustomSelect({
     control,
     label,
     required = false,
-    errorMessage,
-    fullWidth = true,
     placeholder,
-    type = 'text',
     options,
 }: CustomSelectProps) {
     return (
@@ -47,7 +41,7 @@ export default function CustomSelect({
                                 color: 'red'
                             }
                         }}
-                        required
+                        required={required}
                     >
                         {label}
                     </InputLabel>

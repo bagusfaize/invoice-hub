@@ -28,7 +28,6 @@ export default function Sidebar() {
     const renderMenus = (menus: Menu[]) => (
         <ul>
             {menus.map((menu) => {
-                console.log('clg pathname', pathname, menu.link);
                 const isActive = pathname === menu.link;
                 return (
                     <li key={menu.name}>
